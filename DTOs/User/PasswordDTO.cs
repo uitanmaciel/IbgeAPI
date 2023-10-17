@@ -31,8 +31,7 @@ public class PasswordDTO : Notifiable<Notification>
         if (Password is null)
             return new Models.ValueObjects.Password();
 
-        Models.ValueObjects.Password _password = new();
-        _password.Keyword = HashPassword(Password);
+        Models.ValueObjects.Password _password = new Models.ValueObjects.Password(HashPassword(Password));        
         return _password;
     }
 

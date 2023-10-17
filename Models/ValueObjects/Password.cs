@@ -2,7 +2,7 @@
 
 public class Password
 {
-    public string Keyword { get; set; } = null!;
+    public string Keyword { get; private set; } = null!;
 
     public Password() { }
 

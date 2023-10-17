@@ -2,7 +2,7 @@
 
 public class Email
 {
-    public string Address { get; set; } = null!;
+    public string Address { get; private set; } = null!;
 
     public Email() { }
     

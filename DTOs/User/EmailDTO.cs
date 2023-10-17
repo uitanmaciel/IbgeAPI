@@ -30,8 +30,7 @@ public class EmailDTO : Notifiable<Notification>
         if (!IsValid)
             return new Models.ValueObjects.Email();
 
-        Models.ValueObjects.Email _email = new();
-        _email.Address = Address;
+        Models.ValueObjects.Email _email = new Models.ValueObjects.Email(Address);       
         return _email;
     }
 

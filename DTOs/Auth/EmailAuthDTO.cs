@@ -21,8 +21,7 @@ public class EmailAuthDTO
         if(emailDTO is null)
             return new Models.ValueObjects.Email();
 
-        Models.ValueObjects.Email _emailAuth = new();
-        _emailAuth.Address = emailDTO.Address;
+        Models.ValueObjects.Email _emailAuth = new Models.ValueObjects.Email(emailDTO.Address);       
         return _emailAuth;
     }
 }

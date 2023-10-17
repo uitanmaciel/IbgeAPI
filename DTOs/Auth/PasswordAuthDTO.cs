@@ -21,8 +21,7 @@ public class PasswordAuthDTO
         if(passwordDTO is null)
             return new Models.ValueObjects.Password();
 
-        Models.ValueObjects.Password _password = new();
-        _password.Keyword = passwordDTO.Password;
+        Models.ValueObjects.Password _password = new Models.ValueObjects.Password(passwordDTO.Password);        
         return _password;
     }
 }
