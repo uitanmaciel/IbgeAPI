@@ -11,10 +11,11 @@ public static class User
         var app = builder.MapGroup(routePrefix)
             .HasApiVersion(new ApiVersion(2, 0));
 
-        app.MapPost("/user/login", async (IUserService Service, DTOs.Auth.UserAuthDTO user) =>
+        app.MapPost("/user/login", async (IUserService Service, DTOs.Auth.AuthDTO user) =>
         {
-            var _model = new DTOs.Auth.UserAuthDTO().ToModel(user);
-            await Service.Login(_model);
+            var _model = new DTOs.Auth.AuthDTO().ToModel(user);
+            var result = await Service.Login(_model);
+            return result;
         }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0));
 
         app.MapPost("/user", async (IUserService Service, UserDTO user) =>
@@ -36,9 +37,8 @@ public static class User
 
         app.MapGet("/user/get-by/{email}", async (IUserService Service, string email) =>
         {
-            var _model = await Service.GetByEmailAsync(email);
-            var _user = new UserDTO().ToDTO(_model);
-            return _user;
+            var result = await Service.GetByEmailAsync(email);            
+            return result;
         }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0));
 
         return builder;

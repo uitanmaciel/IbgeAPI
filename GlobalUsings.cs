@@ -26,3 +26,5 @@ global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using Microsoft.OpenApi.Models;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 global using System.Text.Json;
+global using IbgeAPI.DTOs.Auth;
+global using IbgeAPI.Services.Authentication;

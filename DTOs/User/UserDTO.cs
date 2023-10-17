@@ -1,6 +1,6 @@
 ﻿namespace IbgeAPI.DTOs.User;
 
-public class UserDTO
+public class UserDTO : ApiResult<UserDTO>
 {
     private Guid Id { get; set; }
     public string? FirstName { get; set; }

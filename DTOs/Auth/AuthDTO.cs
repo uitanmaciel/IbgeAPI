@@ -1,24 +1,24 @@
 ﻿namespace IbgeAPI.DTOs.Auth;
 
-public class UserAuthDTO
+public class AuthDTO
 {
     public EmailAuthDTO Email { get; set; } = null!;
     public PasswordAuthDTO Password { get; set; } = null!;
 
-    public UserAuthDTO() { }
+    public AuthDTO() { }
 
-    public UserAuthDTO(EmailAuthDTO email, PasswordAuthDTO password)
+    public AuthDTO(EmailAuthDTO email, PasswordAuthDTO password)
     {
         Email = email;
         Password = password;
     }
 
-    public virtual Models.User ToModel(UserAuthDTO userDTO)
+    public virtual Models.User ToModel(AuthDTO userDTO)
     {
         return ToModelUser(userDTO);
     }
 
-    static Models.User ToModelUser(UserAuthDTO user)
+    static Models.User ToModelUser(AuthDTO user)
     {
         if(user is null)
             return new Models.User();
