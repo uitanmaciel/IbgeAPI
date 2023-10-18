@@ -63,7 +63,7 @@ Se quiser saber como usar o swagger, acesse o link: [Como utilizar o Swagger](ht
 - Github forks: ![GitHub forks](https://img.shields.io/github/forks/uitanmaciel/IbgeApi)
 - Github stars: ![GitHub Repo stars](https://img.shields.io/github/stars/uitanmaciel/IbgeApi)
 
-## Desenvolvedores
+# Desenvolvedores
 
 | [<img src="https://avatars.githubusercontent.com/u/25512424?v=4" width=115><br><sub>Uitan Maciel</sub>](https://github.com/uitanmaciel) | [<img src="https://avatars.githubusercontent.com/u/62624017?v=4" width=115><br><sub>Achiles Matheus</sub>](https://github.com/achilesmatheus) | [<img src="https://avatars.githubusercontent.com/u/100490822?v=4" width=115><br><sub>Rômulo de Oliveira</sub>](https://github.com/romulodeoliveira) |
 | :-------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
