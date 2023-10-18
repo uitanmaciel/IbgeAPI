@@ -2,8 +2,8 @@
 
 public class DataContext : DbContext
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Ibge> Ibge {  get; set; }
+    public DbSet<Models.User> Users { get; set; }
+    public DbSet<Models.Ibge> Ibge {  get; set; }
 
     public DataContext(DbContextOptions<DataContext> options)
         : base(options)

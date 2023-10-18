@@ -1,11 +1,8 @@
-﻿using Asp.Versioning.Builder;
-using Asp.Versioning;
+﻿namespace IbgeAPI.Enpoints.V2;
 
-namespace IbgeAPI.Enpoints.V2;
-
-public static class Ibge
+public static class IbgeSecondVersion
 {
-    public static IVersionedEndpointRouteBuilder? IbgeEndpointsV2(
+    public static IVersionedEndpointRouteBuilder? IbgeSecondVersionV2(
         this IVersionedEndpointRouteBuilder? builder, string routePrefix)
     {
         var app = builder.MapGroup(routePrefix)
@@ -15,12 +12,18 @@ public static class Ibge
         {
             var _model = new IbgeDTO().ToModel(ibge);
             await Service.CreateAsync(_model);
-        }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0));
+        }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
+
+        app.MapPut("/ibge", async (IIbgeService Service, IbgeDTO ibge) => 
+        {
+            var _model = new IbgeDTO().ToModel(ibge);
+            await Service.UpdateAsync(_model);
+        }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
 
         app.MapDelete("/ibge", async (IIbgeService Service, int id) =>
         {
             await Service.DeleteAsync(new Models.Ibge(id));
-        }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0));
+        }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
 
         app.MapGet("/ibge/city/code/{code}", async (IIbgeService Service, int code) =>
         {

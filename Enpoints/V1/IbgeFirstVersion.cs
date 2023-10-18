@@ -1,11 +1,8 @@
-﻿using Asp.Versioning.Builder;
-using Asp.Versioning;
+﻿namespace IbgeAPI.Enpoints.V1;
 
-namespace IbgeAPI.Enpoints.V1;
-
-public static class Ibge
+public static class IbgeFirstVersion
 {
-    public static IVersionedEndpointRouteBuilder? IbgeEndpointsV1(
+    public static IVersionedEndpointRouteBuilder? IbgeFirstVersionV1(
         this IVersionedEndpointRouteBuilder? builder, string routePrefix)
     {
         var app = builder!.MapGroup(routePrefix)

@@ -34,7 +34,7 @@ public class RepositoryBase<T> : IDisposable, IRepositoryBase<T> where T : class
     }
 
     public async Task UpdateAsync(T entity)
-    {
+    {        
         _dbSet.Entry(entity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }

@@ -31,4 +31,9 @@ public class IbgeService : ServiceBase<Models.Ibge>, IIbgeService
     {
         return await _ibgeRepository.GetByStateAndCityAsync(state, city);
     }
+
+    public async Task<IResult> EditAsync(Models.Ibge model)
+    {
+        return await _ibgeRepository.EditAsync(model.Id);
+    }
 }

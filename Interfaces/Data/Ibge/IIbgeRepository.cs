@@ -2,6 +2,7 @@
 
 public interface IIbgeRepository
 {
+    Task<IResult> EditAsync(int id);
     Task<Models.Ibge> GetByCodeAsync(int code);
     Task<IList<Models.Ibge>> GetByCityAsync(string city);
     Task<IList<Models.Ibge>> GetByStateAsync(string state);

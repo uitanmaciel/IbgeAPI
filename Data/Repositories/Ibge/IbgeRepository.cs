@@ -32,4 +32,12 @@ public class IbgeRepository : RepositoryBase<Models.Ibge>, IIbgeRepository
         var _list = await _context.Ibge.AsNoTracking().Where(x => x.State == state && x.City.Contains(city)).ToListAsync();
         return _list;
     }
+
+    public async Task<IResult> EditAsync(int id)
+    {
+        var entity = await _context.Ibge.FindAsync(id);
+        _context.Entry(entity).State = EntityState.Modified;
+        var _result = await _context.SaveChangesAsync();
+        return (IResult)Task.FromResult(entity); 
+    }
 }

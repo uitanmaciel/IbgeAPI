@@ -2,9 +2,9 @@
 
 namespace IbgeAPI.Data.Mappings;
 
-public class UserMap : IEntityTypeConfiguration<User>
+public class UserMap : IEntityTypeConfiguration<Models.User>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Models.User> builder)
     {
         builder.HasKey(x => x.Id);
 
