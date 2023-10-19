@@ -23,9 +23,10 @@ public class RepositoryBase<T> : IDisposable, IRepositoryBase<T> where T : class
         await _context.SaveChangesAsync();
     }    
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync(int skip, int take)
     {
-        return await _dbSet.ToListAsync();
+
+        return await _dbSet.AsNoTracking().Skip(skip).Take(take).ToListAsync();
     }
 
     public async Task<T> GetByIdAsync(Guid id)
@@ -34,7 +35,7 @@ public class RepositoryBase<T> : IDisposable, IRepositoryBase<T> where T : class
     }
 
     public async Task UpdateAsync(T entity)
-    {        
+    {
         _dbSet.Entry(entity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }

@@ -1,4 +1,5 @@
-﻿using IbgeAPI.DTOs.Responses.Ibge;
+﻿using IbgeAPI.DTOs.Responses;
+using IbgeAPI.DTOs.Responses.Ibge;
 
 namespace IbgeAPI.Services.Ibge;
 
@@ -14,33 +15,80 @@ public class IbgeService : ServiceBase<Models.Ibge>, IIbgeService
         _ibgeRepository = ibgeRepository;
     }
 
-    public async Task<IList<IbgeResponse>> GetByCityAsync(string city)
+    public async Task<IResult> GetByCityAsync(string city)
     {
-        var _response = await _ibgeRepository.GetByCityAsync(city);
-        return new IbgeResponse().ToResponseList(_response);
+        ApiResponse<IList<IbgeResponse>> _responseList = new();
+        try
+        {
+            var _dto = new IbgeResponse().ToResponseList(await _ibgeRepository.GetByCityAsync(city));
+            return Results.Ok(_responseList.Data = _dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public async Task<IbgeResponse> GetByCodeAsync(int code)
+    public async Task<IResult> GetByCodeAsync(int code)
     {
-        var _response = await _ibgeRepository.GetByCodeAsync(code);
-        return new IbgeResponse().ToReponse(_response);
+        ApiResponse<IbgeResponse> _response = new();
+        try
+        {
+            var dto = await _ibgeRepository.GetByCodeAsync(code);
+            var ttt = new IbgeResponse().ToReponse(dto);
+            return Results.Ok(_response.Data = ttt);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }    
 
-    public async Task<IList<IbgeResponse>> GetByStateAsync(string state)
+    public async Task<IResult> GetByStateAsync(string state)
     {
-        var _response = await _ibgeRepository.GetByStateAsync(state);
-        return new IbgeResponse().ToResponseList(_response);
+        ApiResponse<IList<IbgeResponse>> _response = new();
+        try
+        {
+            var dto = await _ibgeRepository.GetByStateAsync(state);
+            var ttt = new IbgeResponse().ToResponseList(dto);
+            return Results.Ok(_response.Data = ttt);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public async Task<IList<IbgeResponse>> GetByStateAndCityAsync(string state, string city)
+    public async Task<IResult> GetByStateAndCityAsync(string state, string city)
     {
-        var _response = await _ibgeRepository.GetByStateAndCityAsync(state, city);
-        return new IbgeResponse().ToResponseList(_response);
+        ApiResponse<IList<IbgeResponse>> _response = new();
+        try
+        {
+            var dto = await _ibgeRepository.GetByStateAndCityAsync(state, city);
+            var ttt = new IbgeResponse().ToResponseList(dto);
+            return Results.Ok(_response.Data = ttt);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public async Task<IbgeResponse> EditAsync(Models.Ibge model)
+    public async Task<IResult> EditAsync(Models.Ibge model)
     {
-        var _response = await _ibgeRepository.EditAsync(model.Id);
-        return new IbgeResponse().ToReponse(_response);
+        ApiResponse<IbgeResponse> _response = new();
+        try
+        {
+            await _ibgeRepository.EditAsync(model.Id);
+            return Results.Ok(_response.Message = "Registro atualizado com sucesso.");
+        }
+        catch (Exception e)
+        {
+            return Results.BadRequest(_response.Error = e.Message);
+        }
     }
 }

@@ -18,6 +18,8 @@ public class UserMap : IEntityTypeConfiguration<Models.User>
 
         builder.OwnsOne(x => x.Email, email =>
         {
+            email.HasIndex(x => new { x.Address })
+                .IsUnique();
             email.Property(x => x.Address)
                 .IsRequired()
                 .HasColumnType("nvarchar");

@@ -1,4 +1,6 @@
-﻿using IbgeAPI.DTOs.Responses.User;
+﻿using IbgeAPI.DTOs.Responses;
+using IbgeAPI.DTOs.Responses.User;
+using IbgeAPI.Models.ValueObjects;
 
 namespace IbgeAPI.Services.User;
 
@@ -15,14 +17,31 @@ public class UserService : ServiceBase<Models.User>, IUserService
 
     public async Task<IResult> GetByEmailAsync(string email)
     {
-        var query = await _userRepository.GetByEmailAsync(email);
-        var _result = new UserResponse().ToUserReponse(query);        
-        return Results.Ok(_result);
+        ApiResponse<UserResponse> _response = new();
+        try
+        {
+            var query = await _userRepository.GetByEmailAsync(email);
+            var _result = new UserResponse().ToUserReponse(query);
+            return Results.Ok(_response.Data = _result);
+        }
+        catch (Exception e)
+        {
+            return Results.BadRequest(_response.Error = e.Message);
+        }
     }   
 
-    public async Task SingInAsync(Models.User user)
+    public async Task<IResult> SingInAsync(Models.User user)
     {
-        await _repository.CreateAsync(user);
+        ApiResponse<UserResponse> _response = new();
+        try
+        {
+            await _repository.CreateAsync(user);
+            return Results.Ok(_response.Message = "Usuário criado com sucesso.");
+        }
+        catch (Exception e)
+        {
+            return Results.BadRequest(_response.Error = e.Message);
+        }
     }
 
     public async Task<IResult> Login(Models.User user)

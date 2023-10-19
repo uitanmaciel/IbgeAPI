@@ -1,4 +1,6 @@
-﻿namespace IbgeAPI.Data.Repositories.Ibge;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace IbgeAPI.Data.Repositories.Ibge;
 
 public class IbgeRepository : RepositoryBase<Models.Ibge>, IIbgeRepository
 {
@@ -12,32 +14,29 @@ public class IbgeRepository : RepositoryBase<Models.Ibge>, IIbgeRepository
 
     public async Task<IList<Models.Ibge>> GetByCityAsync(string city)
     {
-        var _cities = await _context.Ibge.AsNoTracking().Where(x => x.City.Contains(city)).ToListAsync();
-        return _cities;
+        return await _context.Ibge.AsNoTracking().Where(x => x.City.Contains(city)).ToListAsync();
     }
 
     public async Task<Models.Ibge> GetByCodeAsync(int code)
     {
         return await _context.Ibge.AsNoTracking().SingleOrDefaultAsync(x => x.Id == code);
-    }    
+    }
 
     public async Task<IList<Models.Ibge>> GetByStateAsync(string state)
     {
-        var _states = await _context.Ibge.AsNoTracking().Where(x => x.State == state).ToListAsync();
-        return _states;
-    }
+        return await _context.Ibge.AsNoTracking().Where(x => x.State == state).ToListAsync();
+}
 
     public async Task<IList<Models.Ibge>> GetByStateAndCityAsync(string state, string city)
     {
-        var _list = await _context.Ibge.AsNoTracking().Where(x => x.State == state && x.City.Contains(city)).ToListAsync();
-        return _list;
+        return await _context.Ibge.AsNoTracking()
+            .Where(x => x.State == state && x.City.Contains(city)).ToListAsync();
     }
 
-    public async Task<Models.Ibge> EditAsync(int id)
+    public async Task EditAsync(int id)
     {
         var entity = await _context.Ibge.FindAsync(id);
         _context.Entry(entity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
-        return entity; 
     }
 }
