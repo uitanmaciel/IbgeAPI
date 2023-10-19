@@ -1,4 +1,4 @@
-﻿namespace IbgeAPI.DTOs.Auth;
+﻿namespace IbgeAPI.DTOs.Requests.Auth;
 
 public class AuthDTO
 {
@@ -20,7 +20,7 @@ public class AuthDTO
 
     static Models.User ToModelUser(AuthDTO user)
     {
-        if(user is null)
+        if (user is null)
             return new Models.User();
 
         Models.User _user = new();

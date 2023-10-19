@@ -1,10 +1,12 @@
-﻿namespace IbgeAPI.Interfaces.Services.Ibge;
+﻿using IbgeAPI.DTOs.Responses.Ibge;
+
+namespace IbgeAPI.Interfaces.Services.Ibge;
 
 public interface IIbgeService : IServiceBase<Models.Ibge>
 {
-    Task<IResult> EditAsync(Models.Ibge model);
-    Task<Models.Ibge> GetByCodeAsync(int code);
-    Task<IList<Models.Ibge>> GetByCityAsync(string city);
-    Task<IList<Models.Ibge>> GetByStateAsync(string state);
-    Task<IList<Models.Ibge>> GetByStateAndCityAsync(string state, string city);
+    Task<IbgeResponse> EditAsync(Models.Ibge model);
+    Task<IbgeResponse> GetByCodeAsync(int code);
+    Task<IList<IbgeResponse>> GetByCityAsync(string city);
+    Task<IList<IbgeResponse>> GetByStateAsync(string state);
+    Task<IList<IbgeResponse>> GetByStateAndCityAsync(string state, string city);
 }

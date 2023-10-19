@@ -8,9 +8,9 @@ public static class UserSecondVersion
         var app = builder.MapGroup(routePrefix)
             .HasApiVersion(new ApiVersion(2, 0));
 
-        app.MapPost("/user/login", async (IUserService Service, DTOs.Auth.AuthDTO user) =>
+        app.MapPost("/user/login", async (IUserService Service, AuthDTO user) =>
         {
-            var _model = new DTOs.Auth.AuthDTO().ToModel(user);
+            var _model = new AuthDTO().ToModel(user);
             var result = await Service.Login(_model);
             return result;
         }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(2, 0));

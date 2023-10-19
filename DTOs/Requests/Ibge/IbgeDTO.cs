@@ -1,4 +1,4 @@
-﻿namespace IbgeAPI.DTOs.Ibge;
+﻿namespace IbgeAPI.DTOs.Requests.Ibge;
 
 public class IbgeDTO
 {
@@ -25,24 +25,14 @@ public class IbgeDTO
         return ToModelIbge(ibgeDTO);
     }
 
-    public virtual IList<Models.Ibge> ToModelList(IList<IbgeDTO> ibgeDTOs) 
+    public virtual IList<Models.Ibge> ToModelList(IList<IbgeDTO> ibgeDTOs)
     {
         return ToModelIbgeList(ibgeDTOs);
     }
 
-    public virtual IbgeDTO ToDTO(Models.Ibge ibge)
-    {
-        return ToDTOIbge(ibge);
-    }
-
-    public virtual IList<IbgeDTO> ToDTOList(IList<Models.Ibge> ibgeDTOs) 
-    { 
-        return ToDTOIbgeList(ibgeDTOs);
-    }
-
     static Models.Ibge ToModelIbge(IbgeDTO ibgeDTO)
     {
-        if(ibgeDTO is null)
+        if (ibgeDTO is null)
             return new Models.Ibge();
 
         Models.Ibge _ibge = new();
@@ -55,40 +45,11 @@ public class IbgeDTO
     static IList<Models.Ibge> ToModelIbgeList(IList<IbgeDTO> ibgeDTOs)
     {
         List<Models.Ibge> _ibgeList = new();
-        if(ibgeDTOs is not null)
-        {
-            foreach(var ibge in ibgeDTOs)
-            {
-                Models.Ibge _ibge = new();
-                _ibge.Id = ibge.Id;
-                _ibge.State = ibge.State;
-                _ibge.City = ibge.City;
-                _ibgeList.Add(_ibge);
-            }
-        }
-        return _ibgeList;
-    }
-
-    static IbgeDTO ToDTOIbge(Models.Ibge ibge) 
-    { 
-        if(ibge is null)
-            return new IbgeDTO();
-
-        IbgeDTO _ibge = new();
-        _ibge.Id= ibge.Id;
-        _ibge.State= ibge.State;
-        _ibge.City= ibge.City;
-        return _ibge;
-    }
-
-    static IList<IbgeDTO> ToDTOIbgeList(IList<Models.Ibge> ibgeDTOs) 
-    { 
-        List<IbgeDTO> _ibgeList = new();
-        if(ibgeDTOs is not null)
+        if (ibgeDTOs is not null)
         {
             foreach (var ibge in ibgeDTOs)
             {
-                IbgeDTO _ibge = new();
+                Models.Ibge _ibge = new();
                 _ibge.Id = ibge.Id;
                 _ibge.State = ibge.State;
                 _ibge.City = ibge.City;

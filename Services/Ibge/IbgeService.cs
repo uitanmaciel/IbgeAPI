@@ -1,4 +1,6 @@
-﻿namespace IbgeAPI.Services.Ibge;
+﻿using IbgeAPI.DTOs.Responses.Ibge;
+
+namespace IbgeAPI.Services.Ibge;
 
 public class IbgeService : ServiceBase<Models.Ibge>, IIbgeService
 {
@@ -12,28 +14,33 @@ public class IbgeService : ServiceBase<Models.Ibge>, IIbgeService
         _ibgeRepository = ibgeRepository;
     }
 
-    public async Task<IList<Models.Ibge>> GetByCityAsync(string city)
+    public async Task<IList<IbgeResponse>> GetByCityAsync(string city)
     {
-        return await _ibgeRepository.GetByCityAsync(city);
+        var _response = await _ibgeRepository.GetByCityAsync(city);
+        return new IbgeResponse().ToResponseList(_response);
     }
 
-    public async Task<Models.Ibge> GetByCodeAsync(int code)
+    public async Task<IbgeResponse> GetByCodeAsync(int code)
     {
-        return await _ibgeRepository.GetByCodeAsync(code);
+        var _response = await _ibgeRepository.GetByCodeAsync(code);
+        return new IbgeResponse().ToReponse(_response);
     }    
 
-    public async Task<IList<Models.Ibge>> GetByStateAsync(string state)
+    public async Task<IList<IbgeResponse>> GetByStateAsync(string state)
     {
-        return await _ibgeRepository.GetByStateAsync(state);
+        var _response = await _ibgeRepository.GetByStateAsync(state);
+        return new IbgeResponse().ToResponseList(_response);
     }
 
-    public async Task<IList<Models.Ibge>> GetByStateAndCityAsync(string state, string city)
+    public async Task<IList<IbgeResponse>> GetByStateAndCityAsync(string state, string city)
     {
-        return await _ibgeRepository.GetByStateAndCityAsync(state, city);
+        var _response = await _ibgeRepository.GetByStateAndCityAsync(state, city);
+        return new IbgeResponse().ToResponseList(_response);
     }
 
-    public async Task<IResult> EditAsync(Models.Ibge model)
+    public async Task<IbgeResponse> EditAsync(Models.Ibge model)
     {
-        return await _ibgeRepository.EditAsync(model.Id);
+        var _response = await _ibgeRepository.EditAsync(model.Id);
+        return new IbgeResponse().ToReponse(_response);
     }
 }

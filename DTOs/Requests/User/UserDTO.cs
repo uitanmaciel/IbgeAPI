@@ -1,6 +1,6 @@
-﻿namespace IbgeAPI.DTOs.User;
+﻿namespace IbgeAPI.DTOs.Requests.User;
 
-public class UserDTO : ApiResult<UserDTO>
+public class UserDTO
 {
     private Guid Id { get; set; }
     public string? FirstName { get; set; }
@@ -24,7 +24,7 @@ public class UserDTO : ApiResult<UserDTO>
         Password = password;
     }
 
-    public virtual Models.User ToModel(UserDTO user) 
+    public virtual Models.User ToModel(UserDTO user)
     {
         return ToModelUser(user);
     }
@@ -34,19 +34,9 @@ public class UserDTO : ApiResult<UserDTO>
         return ToModelUserList(users);
     }
 
-    public virtual UserDTO ToDTO(Models.User user)
-    {
-        return ToDTOUser(user);
-    }
-
-    public virtual IList<UserDTO> ToDTOList(IList<Models.User> users) 
-    { 
-        return ToDTOUserList(users);
-    }
-
     static Models.User ToModelUser(UserDTO userDTO)
     {
-        if(userDTO is null)
+        if (userDTO is null)
             return new Models.User();
 
         Models.User _user = new();
@@ -56,7 +46,7 @@ public class UserDTO : ApiResult<UserDTO>
 
         _user.FirstName = userDTO.FirstName;
         _user.LastName = userDTO.LastName;
-        _user.Email =  new EmailDTO(userDTO.Email.Address).ToModel();
+        _user.Email = new EmailDTO(userDTO.Email.Address).ToModel();
         _user.Password = new PasswordDTO(userDTO.Password.Password).ToModel();
         return _user;
     }
@@ -64,46 +54,15 @@ public class UserDTO : ApiResult<UserDTO>
     static IList<Models.User> ToModelUserList(IList<UserDTO> users)
     {
         List<Models.User> _usersList = new();
-        if(users is not null)
+        if (users is not null)
         {
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 Models.User _user = new();
                 _user.Id = user.Id;
                 _user.FirstName = user.FirstName;
                 _user.LastName = user.LastName;
                 _user.Email = new EmailDTO(user.Email.Address).ToModel();
-                _usersList.Add(_user);
-            }
-        }
-        return _usersList;
-    }
-
-    static UserDTO ToDTOUser(Models.User user)
-    {
-        if(user is null)
-            return new UserDTO();
-
-        UserDTO _user = new();
-        _user.Id = user.Id;
-        _user.FirstName = user.FirstName;
-        _user.LastName = user.LastName;
-        _user.Email = new EmailDTO().ToDTO(user.Email);        
-        return _user;
-    }
-
-    static IList<UserDTO> ToDTOUserList(IList<Models.User> users)
-    {
-        List<UserDTO> _usersList = new();
-        if(users is not null)
-        {
-            foreach (var user in users)
-            {
-                UserDTO _user = new();
-                _user.Id = user.Id;
-                _user.FirstName = user.FirstName;
-                _user.LastName = user.LastName;
-                _user.Email = new EmailDTO().ToDTO(user.Email);
                 _usersList.Add(_user);
             }
         }

@@ -22,23 +22,20 @@ public static class IbgeFirstVersion
 
         app.MapGet("/ibge/city/code/{code}", async (IIbgeService Service, int code) =>
         {
-            var _model = await Service.GetByCodeAsync(code);
-            var _city = new IbgeDTO().ToDTO(_model);
-            return _city;
+            var _response = await Service.GetByCodeAsync(code);
+            return _response;
         }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(1, 0));
 
         app.MapGet("/ibge/city/{city}", async (IIbgeService Service, string city) =>
         {
-            var _models = await Service.GetByCityAsync(city);
-            var _cities = new IbgeDTO().ToDTOList(_models);
-            return _cities;
+            var _response = await Service.GetByCityAsync(city);
+            return _response;
         }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(1, 0));
 
         app.MapGet("/ibge/state/{state}", async (IIbgeService Service, string state) =>
         {
-            var _models = await Service.GetByStateAsync(state);
-            var _states = new IbgeDTO().ToDTOList(_models);
-            return _states;
+            var _response = await Service.GetByStateAsync(state);
+            return _response;
         }).Produces<UserDTO>().MapToApiVersion(new ApiVersion(1, 0));
 
         return builder;

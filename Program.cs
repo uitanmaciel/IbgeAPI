@@ -1,6 +1,3 @@
-using IbgeAPI;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var key = Encoding.ASCII.GetBytes(Settings.Secrect);

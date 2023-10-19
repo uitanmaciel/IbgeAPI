@@ -1,4 +1,4 @@
-﻿using IbgeAPI.DTOs;
+﻿using IbgeAPI.DTOs.Responses.User;
 
 namespace IbgeAPI.Services.User;
 
@@ -16,7 +16,7 @@ public class UserService : ServiceBase<Models.User>, IUserService
     public async Task<IResult> GetByEmailAsync(string email)
     {
         var query = await _userRepository.GetByEmailAsync(email);
-        var _result = new UserDTO().ToDTO(query);        
+        var _result = new UserResponse().ToUserReponse(query);        
         return Results.Ok(_result);
     }   
 
@@ -27,7 +27,7 @@ public class UserService : ServiceBase<Models.User>, IUserService
 
     public async Task<IResult> Login(Models.User user)
     {
-        var result = new ApiResult<string>();
+        var auth = new AuthReponse();
         try
         {
             var userDb = await _userRepository.GetByEmailAsync(user.Email.Address);
@@ -35,13 +35,13 @@ public class UserService : ServiceBase<Models.User>, IUserService
                 throw new Exception("User Unauthorized. Invalid email or password.");
 
             var token = AuthenticationService.GenerateToken(user);
-            result.Message = "Token generated";
-            result.Data = token;
-            return Results.Ok(result);
+            auth.Message = "Token generated";
+            auth.Data = token;
+            return Results.Ok(auth);
         }
         catch (Exception e)
         {            
-            return Results.BadRequest(result.Error = e.Message);
+            return Results.BadRequest(auth.Error = e.Message);
         }
     }
 }

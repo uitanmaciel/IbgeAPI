@@ -1,6 +1,4 @@
-﻿using IbgeAPI.DTOs;
-
-namespace IbgeAPI.Services;
+﻿namespace IbgeAPI.Services;
 
 public class ServiceBase<T> : IServiceBase<T> where T : class
 {
@@ -21,33 +19,15 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         await _repository.DeleteAsync(entity);
     }
 
-    public async Task<IResult> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync()
     {
-        try
-        {
-            var _result = await _repository.GetAllAsync();
-            return Results.Ok(_result);
-        }
-        catch (Exception e)
-        {
-            var _result = new ApiResult<string>() { Error = e.Message };
-            return Results.BadRequest(_result);
-        }
+        return await _repository.GetAllAsync();
     }
 
-    public async Task<IResult> GetByIdAsync(T entity)
+    public async Task<T> GetByIdAsync(T entity)
     {
-        try
-        {
-            var id = GetId(entity);
-            var _result = await _repository.GetByIdAsync(id);
-            return Results.Ok(_result);
-        }
-        catch (Exception e)
-        {
-            var _result = new ApiResult<string>() { Error = e.Message };
-            return Results.BadRequest(_result);
-        }
+        var id = GetId(entity);
+        return await _repository.GetByIdAsync(id);
     }
 
     public async Task UpdateAsync(T entity)

@@ -33,11 +33,11 @@ public class IbgeRepository : RepositoryBase<Models.Ibge>, IIbgeRepository
         return _list;
     }
 
-    public async Task<IResult> EditAsync(int id)
+    public async Task<Models.Ibge> EditAsync(int id)
     {
         var entity = await _context.Ibge.FindAsync(id);
         _context.Entry(entity).State = EntityState.Modified;
-        var _result = await _context.SaveChangesAsync();
-        return (IResult)Task.FromResult(entity); 
+        await _context.SaveChangesAsync();
+        return entity; 
     }
 }
