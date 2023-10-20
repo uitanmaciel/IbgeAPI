@@ -29,7 +29,7 @@ public class RepositoryBase<T> : IDisposable, IRepositoryBase<T> where T : class
         return await _dbSet.AsNoTracking().Skip(skip).Take(take).ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(Guid id)
+    public async Task<T> GetByIdAsync(dynamic id)
     {
         return await _dbSet.FindAsync(id);
     }

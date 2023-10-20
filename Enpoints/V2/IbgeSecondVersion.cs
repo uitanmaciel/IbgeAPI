@@ -1,4 +1,6 @@
-﻿namespace IbgeAPI.Enpoints.V2;
+﻿using System.Runtime.InteropServices;
+
+namespace IbgeAPI.Enpoints.V2;
 
 public static class IbgeSecondVersion
 {
@@ -13,21 +15,21 @@ public static class IbgeSecondVersion
         app.MapPost("/ibge", async (IIbgeService Service, IbgeDTO ibge) =>
         {
             var _model = new IbgeDTO().ToModel(ibge);
-            await Service.CreateAsync(_model);
+            return await Service.CreateAsync(_model);
         }).Produces<IbgeResponse>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
 
         app.MapPut("/ibge", async (IIbgeService Service, IbgeDTO ibge) => 
         {
             var _model = new IbgeDTO().ToModel(ibge);
-            await Service.UpdateAsync(_model);
+            return await Service.UpdateAsync(_model);
         }).Produces<IbgeResponse>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
 
         app.MapDelete("/ibge", async (IIbgeService Service, int id) =>
         {
-            await Service.DeleteAsync(new Models.Ibge(id));
+            return await Service.DeleteAsync(new Models.Ibge(id));
         }).Produces<UserResponse>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
 
-        app.MapGet("/ibge/", async (IIbgeService Service, int skip, int take) =>
+        app.MapGet("/ibge/", async (IIbgeService Service, int? skip, int? take) =>
         {
             var _response = await Service.GetAllAsync(skip, take);
             return _response;
@@ -36,7 +38,6 @@ public static class IbgeSecondVersion
         app.MapGet("/ibge/city/code/{code}", async (IIbgeService Service, int code) =>
         {
             var _response = await Service.GetByCodeAsync(code);
-            
             return _response;
         }).Produces<IbgeResponse>().MapToApiVersion(new ApiVersion(2, 0));
 

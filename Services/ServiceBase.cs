@@ -31,7 +31,7 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         try
         {
             await _repository.DeleteAsync(entity);
-            return Results.Ok(_response.Message = "Usuário excluído com sucesso.");
+            return Results.Ok(_response.Message = "Deleted successfully.");
         }
         catch (Exception e)
         {
@@ -39,12 +39,17 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         }
     }
 
-    public async Task<IResult> GetAllAsync(int skip = 0, int take = 25)
+    public async Task<IResult> GetAllAsync(int? skip = 0, int? take = 25)
     {
         ApiResponse<IEnumerable<T>> _response = new();
         try
         {
-            var _res = await _repository.GetAllAsync(skip, take);
+            if (skip is null)
+                skip = 0;
+            if(take is null)
+                take = 25;
+            
+            var _res = await _repository.GetAllAsync(Convert.ToInt32(skip), Convert.ToInt32(take));
             return Results.Ok(_response.Data = _res);
         }
         catch (Exception e)
@@ -73,7 +78,7 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         try
         {
             await _repository.UpdateAsync(entity);
-            return Results.Ok(_response.Message = "Usuário atualizado com sucesso.");
+            return Results.Ok(_response.Message = "Updated successfully.");
         }
         catch (Exception e)
         {
@@ -87,15 +92,9 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         var props = entity.GetType().GetProperties();
         foreach (var prop in props)
         {
-            if (prop.Name.Equals("Id") && prop.GetType() == typeof(System.Guid))
+            if (prop.Name.Equals("Id"))
             {
-                id = (Guid)prop.GetValue(entity, null);
-                break;
-            }
-            
-            if(prop.Name.Equals("Id") && prop.GetType() == typeof(System.Int32))
-            {
-                id = (int)prop.GetValue(entity, null);
+                id = prop.GetValue(entity, null);
                 break;
             }
         }
