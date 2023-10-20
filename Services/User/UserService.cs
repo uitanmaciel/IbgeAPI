@@ -1,6 +1,4 @@
-﻿using IbgeAPI.DTOs.Responses;
-using IbgeAPI.DTOs.Responses.User;
-using IbgeAPI.Models.ValueObjects;
+﻿
 
 namespace IbgeAPI.Services.User;
 
@@ -17,11 +15,11 @@ public class UserService : ServiceBase<Models.User>, IUserService
 
     public async Task<IResult> GetByEmailAsync(string email)
     {
-        ApiResponse<UserResponse> _response = new();
+        ApiResponse<GetedUserResponse> _response = new();
         try
         {
             var query = await _userRepository.GetByEmailAsync(email);
-            var _result = new UserResponse().ToUserReponse(query);
+            var _result = new GetedUserResponse().ToUserReponse(query);
             return Results.Ok(_response.Data = _result);
         }
         catch (Exception e)
@@ -32,11 +30,11 @@ public class UserService : ServiceBase<Models.User>, IUserService
 
     public async Task<IResult> SingInAsync(Models.User user)
     {
-        ApiResponse<UserResponse> _response = new();
+        ApiResponse<CreatedUserResponse> _response = new();
         try
         {
             await _repository.CreateAsync(user);
-            return Results.Ok(_response.Message = "Usuário criado com sucesso.");
+            return Results.Ok(_response.Message = "User created successfully.");
         }
         catch (Exception e)
         {
@@ -46,7 +44,7 @@ public class UserService : ServiceBase<Models.User>, IUserService
 
     public async Task<IResult> Login(Models.User user)
     {
-        var auth = new AuthReponse();
+        var auth = new AuthorizedResponse();
         try
         {
             var userDb = await _userRepository.GetByEmailAsync(user.Email.Address);

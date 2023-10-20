@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace IbgeAPI.Enpoints.V2;
+﻿namespace IbgeAPI.Enpoints.V2;
 
 public static class IbgeSecondVersion
 {
@@ -16,7 +14,7 @@ public static class IbgeSecondVersion
         {
             var _model = new IbgeDTO().ToModel(ibge);
             return await Service.CreateAsync(_model);
-        }).Produces<IbgeResponse>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
+        }).Produces<IbgeResponse>().MapToApiVersion(new ApiVersion(2, 0)).WithSummary("").RequireAuthorization();
 
         app.MapPut("/ibge", async (IIbgeService Service, IbgeDTO ibge) => 
         {
@@ -27,7 +25,7 @@ public static class IbgeSecondVersion
         app.MapDelete("/ibge", async (IIbgeService Service, int id) =>
         {
             return await Service.DeleteAsync(new Models.Ibge(id));
-        }).Produces<UserResponse>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
+        }).Produces<CreatedUserResponse>().MapToApiVersion(new ApiVersion(2, 0)).RequireAuthorization();
 
         app.MapGet("/ibge/", async (IIbgeService Service, int? skip, int? take) =>
         {

@@ -17,7 +17,7 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         try
         {
             await _repository.CreateAsync(entity);
-            return Results.Ok(_response.Message = "Usuário criado com sucesso.");
+            return Results.Ok(_response.Message = "Successfully created.");
         }
         catch (Exception e)
         {
@@ -31,7 +31,7 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         try
         {
             await _repository.DeleteAsync(entity);
-            return Results.Ok(_response.Message = "Deleted successfully.");
+            return Results.Ok(_response.Message = "Successfully deleted.");
         }
         catch (Exception e)
         {
@@ -78,7 +78,7 @@ public class ServiceBase<T> : IServiceBase<T> where T : class
         try
         {
             await _repository.UpdateAsync(entity);
-            return Results.Ok(_response.Message = "Updated successfully.");
+            return Results.Ok(_response.Message = "Successfully updated.");
         }
         catch (Exception e)
         {

@@ -11,6 +11,7 @@ global using Microsoft.EntityFrameworkCore;
 global using IbgeAPI.Models.ValueObjects;
 global using IbgeAPI.DTOs.Responses.User;
 global using IbgeAPI.Data.Mappings;
+global using IbgeAPI.DTOs.Responses;
 global using IbgeAPI.DTOs.Requests.User;
 global using IbgeAPI.DTOs.Responses.Auth;
 global using IbgeAPI.Interfaces.Services.Ibge;

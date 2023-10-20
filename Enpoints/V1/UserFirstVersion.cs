@@ -9,22 +9,22 @@ public static class UserFirstVersion
             .HasDeprecatedApiVersion(new ApiVersion(1,0))
             .HasApiVersion(new ApiVersion(1, 1));
 
-        app.MapPost("/user", async (IUserService Service, UserDTO user) =>
+        app.MapPost("/user", async (IUserService Service, CreateUserDTO user) =>
         {
-            var _model = new UserDTO().ToModel(user);
+            var _model = new CreateUserDTO().ToModel(user);
             await Service.SingInAsync(_model);
-        }).Produces<UserResponse>().MapToApiVersion(new ApiVersion(1, 0));
+        }).Produces<CreatedUserResponse>().MapToApiVersion(new ApiVersion(1, 0));
 
-        app.MapPut("/user", async (IUserService Service, UserDTO user) =>
+        app.MapPut("/user", async (IUserService Service, CreateUserDTO user) =>
         {
-            var _model = new UserDTO().ToModel(user);
+            var _model = new CreateUserDTO().ToModel(user);
             await Service.UpdateAsync(_model);
-        }).Produces<UserResponse>().MapToApiVersion(new ApiVersion(1, 0));
+        }).Produces<CreatedUserResponse>().MapToApiVersion(new ApiVersion(1, 0));
 
         app.MapDelete("/user", async (IUserService Service, Guid id) =>
         {
             await Service.DeleteAsync(new Models.User(id));
-        }).Produces<UserResponse>().MapToApiVersion(new ApiVersion(1, 0));
+        }).Produces<CreatedUserResponse>().MapToApiVersion(new ApiVersion(1, 0));
 
         return builder;
     }

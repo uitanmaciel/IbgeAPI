@@ -1,57 +1,51 @@
 ﻿namespace IbgeAPI.DTOs.Requests.User;
 
-public class UserDTO
+public class UpdateUserDTO
 {
-    private Guid Id { get; set; }
+    public Guid Id { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public EmailDTO Email { get; set; } = null!;
-    public PasswordDTO Password { get; set; } = null!;
 
-    public UserDTO() { }
+    public UpdateUserDTO() { }
 
-    public UserDTO(Guid id)
+    public UpdateUserDTO(Guid id)
     {
         Id = id;
     }
 
-    public UserDTO(Guid id, string? firstName, string? lastName, EmailDTO email, PasswordDTO password)
+    public UpdateUserDTO(Guid id, string? firstName, string? lastName, EmailDTO email)
     {
         Id = id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
-        Password = password;
     }
 
-    public virtual Models.User ToModel(UserDTO user)
+    public virtual Models.User ToModel(UpdateUserDTO user)
     {
         return ToModelUser(user);
     }
 
-    public virtual IList<Models.User> ToModelList(IList<UserDTO> users)
+    public virtual IList<Models.User> ToModelList(IList<UpdateUserDTO> users)
     {
         return ToModelUserList(users);
     }
 
-    static Models.User ToModelUser(UserDTO userDTO)
+    static Models.User ToModelUser(UpdateUserDTO userDTO)
     {
         if (userDTO is null)
             return new Models.User();
 
         Models.User _user = new();
-
-        if (_user.Id != Guid.Empty) _user.Id = userDTO.Id;
-        else _user.Id = Guid.NewGuid();
-
+        _user.Id = userDTO.Id;
         _user.FirstName = userDTO.FirstName;
         _user.LastName = userDTO.LastName;
         _user.Email = new EmailDTO(userDTO.Email.Address).ToModel();
-        _user.Password = new PasswordDTO(userDTO.Password.Password).ToModel();
         return _user;
     }
 
-    static IList<Models.User> ToModelUserList(IList<UserDTO> users)
+    static IList<Models.User> ToModelUserList(IList<UpdateUserDTO> users)
     {
         List<Models.User> _usersList = new();
         if (users is not null)
