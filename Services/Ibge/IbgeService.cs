@@ -1,7 +1,4 @@
-﻿using IbgeAPI.DTOs.Responses;
-using IbgeAPI.DTOs.Responses.Ibge;
-
-namespace IbgeAPI.Services.Ibge;
+﻿namespace IbgeAPI.Services.Ibge;
 
 public class IbgeService : ServiceBase<Models.Ibge>, IIbgeService
 {
@@ -46,12 +43,16 @@ public class IbgeService : ServiceBase<Models.Ibge>, IIbgeService
         }
     }    
 
-    public async Task<IResult> GetByStateAsync(string state)
+    public async Task<IResult> GetByStateAsync(string state, int? skip, int? take)
     {
         ApiResponse<IList<IbgeResponse>> _response = new();
         try
         {
-            var dto = await _ibgeRepository.GetByStateAsync(state);
+            if (skip is null)
+                skip = 0;
+            if (take is null)
+                take = 25;
+            var dto = await _ibgeRepository.GetByStateAsync(state, Convert.ToInt32(skip), Convert.ToInt32(take));
             var ttt = new IbgeResponse().ToResponseList(dto);
             return Results.Ok(_response.Data = ttt);
         }

@@ -1,6 +1,4 @@
-﻿using IbgeAPI.DTOs.Responses;
-
-namespace IbgeAPI.Services;
+﻿namespace IbgeAPI.Services;
 
 public class ServiceBase<T> : IServiceBase<T> where T : class
 {

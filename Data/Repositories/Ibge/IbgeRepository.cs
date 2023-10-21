@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace IbgeAPI.Data.Repositories.Ibge;
+﻿namespace IbgeAPI.Data.Repositories.Ibge;
 
 public class IbgeRepository : RepositoryBase<Models.Ibge>, IIbgeRepository
 {
@@ -22,9 +20,12 @@ public class IbgeRepository : RepositoryBase<Models.Ibge>, IIbgeRepository
         return await _context.Ibge.AsNoTracking().SingleOrDefaultAsync(x => x.Id == code);
     }
 
-    public async Task<IList<Models.Ibge>> GetByStateAsync(string state)
+    public async Task<IList<Models.Ibge>> GetByStateAsync(string state, int skip, int take)
     {
-        return await _context.Ibge.AsNoTracking().Where(x => x.State == state).ToListAsync();
+        return await _context.Ibge.AsNoTracking()
+                                  .Where(x => x.State == state)
+                                  .Skip(skip)
+                                  .Take(take).ToListAsync();
 }
 
     public async Task<IList<Models.Ibge>> GetByStateAndCityAsync(string state, string city)

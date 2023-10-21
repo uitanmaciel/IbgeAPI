@@ -32,9 +32,9 @@ public static class IbgeFirstVersion
             return _response;
         }).Produces<IbgeResponse>().MapToApiVersion(new ApiVersion(1, 0));
 
-        app.MapGet("/ibge/state/{state}", async (IIbgeService Service, string state) =>
+        app.MapGet("/ibge/state/{state}", async (IIbgeService Service, string state, int skip, int take) =>
         {
-            var _response = await Service.GetByStateAsync(state);
+            var _response = await Service.GetByStateAsync(state, skip, take);
             return _response;
         }).Produces<IbgeResponse>().MapToApiVersion(new ApiVersion(1, 0));
 
