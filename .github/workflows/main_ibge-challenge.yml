@@ -9,8 +9,8 @@ on:
       - main
   workflow_dispatch:
 
-  env:
-    ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQLITE_CONNECTION_STRING }}
+env:
+  ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQLITE_CONNECTION_STRING }}
 
 jobs:
   build:
