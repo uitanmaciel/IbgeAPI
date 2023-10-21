@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IbgeAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231021131547_v1")]
-    partial class v1
+    [Migration("20231021144959_CreateInitial")]
+    partial class CreateInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
