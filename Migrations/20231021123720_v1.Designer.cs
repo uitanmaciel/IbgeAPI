@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IbgeAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231016093827_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231021123720_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,6 +70,9 @@ namespace IbgeAPI.Migrations
                                 .HasColumnType("nvarchar");
 
                             b1.HasKey("UserId");
+
+                            b1.HasIndex("Address")
+                                .IsUnique();
 
                             b1.ToTable("Users");
 
