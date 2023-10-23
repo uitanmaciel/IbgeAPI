@@ -8,6 +8,7 @@
 Esse desafio foi criado pelo André Baltieri e sua equipe, balta.io, com início marcado para o dia 10/10/2023. Tivemos acesso às orientações através de um canal do discord e também por um live, onde foram passadas todas as informações acerca do desafio.
 
 ### [Wiki do projeto](https://github.com/uitanmaciel/IbgeAPI/wiki/01.-Home)
+### [Demonstração ao vivo](https://react-ibge-lc678qmje-achilesmatheus.vercel.app)
 
 # Desenvolvimento Local
 
